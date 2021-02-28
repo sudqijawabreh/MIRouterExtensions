@@ -2,49 +2,24 @@ table=[];
 row=[];
 isNotClicked=1;
 plan=""
-  chrome.webRequest.onBeforeSendHeaders.addListener(
-
-        function(details) {
-          var newValue="";
-          console.log(details);
-        
-         
-         
-            // if(details.url=="http://www2.najah.edu/gradarch/default.asp"){
-              newValue="https://zajel.najah.edu";
-            // }
-        details.requestHeaders.push({
-        name: 'Referer',
-        value: newValue,
-    });
- //       details.requestHeaders.push({
- //       name: 'Content-Type',
- //       value: "application/x-www-form-urlencoded; charset=UTF-8",
- //   });  
-    return {
-        requestHeaders: details.requestHeaders
-    };
-       },
-        {urls: ["https://www.facebook.com/*"]},
-        ["blocking", "requestHeaders"]);
  
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId            : '154620008433771',
-      autoLogAppEvents : true,
-      xfbml            : true,
-      version          : 'v2.10'
-    });
-    FB.AppEvents.logPageView();
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
+chrome.contextMenus.create({
+    title: "add device: %s", 
+    contexts:["selection"], 
+    onclick:function(a){
+        console.log(a);
+        key=a.selectionText;
+        value=prompt("enter a name")
+        jsonfile={}
+        jsonfile[key]=value
+        chrome.storage.sync.set(jsonfile, function() {
+            console.log('Value is set to ' + key);
+          });
+          chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+            chrome.tabs.sendMessage(tabs[0].id, {action:"refresh"}, function(response) {});  
+        });
+    }
+  });
 var sendMsgToTab=function(tab,msg) {
                 chrome.tabs.sendMessage(tab.id, msg, function(response){});
 }

@@ -17,6 +17,10 @@
            "js": ["jquery.js","curicula.js"]
        },
        {
+           "matches": ["http://192.168.31.1/cgi-bin/luci/*/web/*"],
+           "js": ["jquery.js","devices.js"]
+       },
+       {
            "matches": ["http://zajellb.najah.edu/servlet/materials"],
            "js": ["jquery.js","materials.js","html2canvas.js"]
        },
@@ -34,7 +38,9 @@
     "activeTab",
     "tabs",
     "webRequest",
+    "webRequest",
     "webRequestBlocking",
+    "contextMenus",
      "http://*/*", "https://*/*",
      "storage",
      "alarms",

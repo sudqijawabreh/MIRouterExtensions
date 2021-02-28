@@ -33,7 +33,8 @@ var hideTableText=decodeURIComponent("%D8%A7%D8%AE%D9%81%D8%A7%D8%A1%20%D8%A7%D9
 var showTableText=decodeURIComponent("%D8%A7%D8%B8%D9%87%D8%A7%D8%B1%20%D8%A7%D9%84%D8%AC%D8%AF%D9%88%D9%84");
 var finaltext=showTableText;
 function planIt(){
-	plan=$('body').first().find('center').find('table').first().next().next().next();
+	debugger;
+	plan=$('body').first().find('center').find('table').next();
 	var planId=$('input[type="hidden"]').attr('value');
 	var year=$('select[name=curVal]').find('option').attr('value');
 	planTrNum=$(plan).find('tr').length;
@@ -135,13 +136,14 @@ function planIt(){
 	$(select).html(selectString);
 	$('body').find('center').first().find('tr').first().append(select);
 	searchButton=document.createElement('button');
+	//$(searchButton).html('&#1576;&#1581;&#1579;');
 	$(searchButton).html('&#1576;&#1581;&#1579;');
 
 	$('body').find('center').first().find('tr').first().append(searchButton);
 	$(searchButton).on('click',function(){
 		var textbox=document.getElementsByName('majVal')
 		var selectText=select.options[select.selectedIndex].innerHTML;
-        selectText=selectText.substr(0,16);
+        selectText=selectText.substr(0,10);
 
 		if(selectText==decodeURIComponent("%D8%B4%D8%B1%D9%8A%D8%B9%D8%A9%20%D9%88%D9%85%D8%B5%D8%A7%D8%B1%D9%81%20%D8%A5%D8%B3%D9%84%D8%A7%D9%85%D9%8A%D8%A9")){
 			selectText=decodeURIComponent("%D8%B4%D8%B1%D9%8A%D8%B9%D8%A9");}
