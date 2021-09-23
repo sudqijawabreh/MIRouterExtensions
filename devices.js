@@ -43,12 +43,12 @@ function getSpeed(){
     const start=location.href.indexOf(';');
     const end=start + ';stok=fe8b82a0aecba330281eb372dedb0c8e'.length;
     const token=location.href.slice(start,end);
-    $.get("/cgi-bin/luci/"+token+"/api/misystem/status", function (response, status) {
+    $.get("/cgi-bin/luci/"+token+"/api/misystem/devicelist", function (response, status) {
         console.log(response);
         data = JSON.parse(response);
         let devices = {};
-        data.dev.forEach(d => {
-            devices[d.mac] = { dspeed: speedFormat(d.downspeed), upspeed: speedFormat(d.upspeed) };
+        data.list.forEach(d => {
+            devices[d.mac] = { dspeed: speedFormat(d.statistics.downspeed), upspeed: speedFormat(d.statistics.upspeed) };
         });
         items = $("body").find(".devnetinfo").map(function () { return { mac: getMacAddress($(this).children().last()), parent: $(this).parents('.device-item') } })
         for (let i = 0; i < items.length; i++) {
